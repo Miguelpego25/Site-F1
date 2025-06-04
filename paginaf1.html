@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fórmula 1 - Mundo das Corridas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #f00;
+      font-size: 3em;
+      margin-top: 50px;
+    }
+
+    .header {
+      background-color: #111;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 1.2em;
+      color: #fff;
+    }
+
+    .main-content {
+      padding: 20px;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .button {
+      background-color: #f00;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    .button:hover {
+      background-color: #c00;
+    }
+
+    /* Estilo da barra de pesquisa */
+    .search-bar {
+      margin-bottom: 30px;
+    }
+
+    #searchInput {
+      padding: 10px;
+      width: 250px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    /* Estilo do easter egg */
+    #easter-egg {
+      display: none;
+      background-color: #222;
+      color: #0f0;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.2em;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="easter-egg">🏁 Você desbloqueou o Modo Turbo Secreto da F1! 🏎️💨</div>
+
+  <header class="header">
+    <h1>Bem-vindo ao Mundo da Fórmula 1</h1>
+    <p>Fique por dentro das últimas notícias, resultados e curiosidades sobre as corridas mais emocionantes do planeta.</p>
+  </header>
+
+  <section class="main-content">
+    <!-- Barra de pesquisa -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Pesquisar...">
+    </div>
+
+    <p>Explore tudo sobre a Fórmula 1: equipes, pilotos, circuitos e muito mais!</p>
+
+    <div id="buttonContainer">
+      <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20saiba%20mais/saiba.html" class="button">Sobre</a>
+      <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20classificac%C3%A3o/classificacao.html" class="button">Classificação</a>
+      <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20not%C3%ADcias/noticias.html" class="button">Notícias</a>
+    </div>
+  </section>
+
+  <script>
+    // Função de pesquisa nos botões
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const filter = this.value.toLowerCase();
+      const buttons = document.querySelectorAll("#buttonContainer .button");
+
+      buttons.forEach(button => {
+        const text = button.textContent.toLowerCase();
+        button.style.display = text.includes(filter) ? "inline-block" : "none";
+      });
+    });
+  </script>
+
+</body>
+</html>

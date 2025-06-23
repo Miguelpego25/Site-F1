@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fórmula 1 - Mundo das Corridas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,113 +13,314 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
       color: #fff;
+      overflow-x: hidden;
     }
 
-    h1 {
-      text-align: center;
-      color: #f00;
-      font-size: 3em;
-      margin-top: 50px;
+    /* Animações */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .header {
-      background-color: #111;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 1.2em;
-      color: #fff;
-    }
-
-    .main-content {
-      padding: 20px;
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    .button {
-      background-color: #f00;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin: 10px;
-      display: inline-block;
-    }
-
-    .button:hover {
-      background-color: #c00;
-    }
-
-    /* Estilo da barra de pesquisa */
-    .search-bar {
-      margin-bottom: 30px;
-    }
-
-    #searchInput {
-      padding: 10px;
-      width: 250px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-
-    /* Estilo do easter egg */
-    #easter-egg {
-      display: none;
-      background-color: #222;
-      color: #0f0;
-      text-align: center;
-      padding: 15px;
-      font-size: 1.2em;
-      animation: pulse 1s infinite;
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     @keyframes pulse {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #d40000 0%, #ff0000 50%, #d40000 100%);
+      background-size: 200% 200%;
+      animation: gradient 3s ease infinite;
+      padding: 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .header h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 4em;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: fadeInUp 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header p {
+      font-size: 1.3em;
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      animation: fadeInUp 1s ease-out 0.3s both;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .main-content p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      color: #ccc;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Button Container */
+    #buttonContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Buttons */
+    .button {
+      background: linear-gradient(135deg, #d40000 0%, #ff0000 100%);
+      color: white;
+      padding: 20px 30px;
+      text-decoration: none;
+      border-radius: 15px;
+      font-size: 1.1em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(212, 0, 0, 0.3);
+      border: 2px solid transparent;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .button:hover::before {
+      left: 100%;
+    }
+
+    .button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(212, 0, 0, 0.4);
+      border-color: rgba(255,255,255,0.3);
+      animation: pulse 0.6s ease-in-out;
+    }
+
+    .button:active {
+      transform: translateY(-2px);
+    }
+
+    /* Decorative Elements */
+    .f1-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2.5em;
+        letter-spacing: 2px;
+      }
+
+      .header p {
+        font-size: 1.1em;
+        padding: 0 20px;
+      }
+
+      #buttonContainer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+      }
+
+      .button {
+        padding: 15px 25px;
+        font-size: 1em;
+      }
+
+      .main-content {
+        padding: 40px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .header p {
+        font-size: 1em;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 1s ease-out 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .loading::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      border: 3px solid #d40000;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading"></div>
 
-  <div id="easter-egg">🏁 Você desbloqueou o Modo Turbo Secreto da F1! 🏎️💨</div>
+  <!-- F1 Logo -->
+  <div class="f1-logo">F1</div>
 
   <header class="header">
-    <h1>Bem-vindo ao Mundo da Fórmula 1</h1>
-    <p>Fique por dentro das últimas notícias, resultados e curiosidades sobre as corridas mais emocionantes do planeta.</p>
+    <h1>Fórmula 1</h1>
+    <p>Bem-vindo ao mundo das corridas mais emocionantes do planeta. Descubra tudo sobre pilotos, equipes, circuitos e a tecnologia que move o automobilismo de elite.</p>
   </header>
 
   <section class="main-content">
-    <!-- Barra de pesquisa -->
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Pesquisar...">
-    </div>
-
-    <p>Explore tudo sobre a Fórmula 1: equipes, pilotos, circuitos e muito mais!</p>
+    <p>Explore o universo da Fórmula 1 através das nossas seções especializadas</p>
 
     <div id="buttonContainer">
-      <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20saiba%20mais/saiba.html" class="button">Sobre</a>
-      <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20classificac%C3%A3o/classificacao.html" class="button">Classificação</a>
-      <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20not%C3%ADcias/noticias.html" class="button">Notícias</a>
+      <a href="saiba mais/saiba.html" class="button">
+        <span>🏎️</span> Sobre F1
+      </a>
+      <a href="classificação/classificaçao.html" class="button">
+        <span>🏆</span> Classificação
+      </a>
+      <a href="notícias/noticias.html" class="button">
+        <span>📰</span> Notícias
+      </a>
+      <a href="créditos/creditos.html" class="button">
+        <span>👥</span> Créditos
+      </a>
     </div>
   </section>
 
   <script>
-    // Função de pesquisa nos botões
-    document.getElementById("searchInput").addEventListener("input", function () {
-      const filter = this.value.toLowerCase();
-      const buttons = document.querySelectorAll("#buttonContainer .button");
+    // Remove loading screen after page loads
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.querySelector('.loading').style.display = 'none';
+      }, 2000);
+    });
 
-      buttons.forEach(button => {
-        const text = button.textContent.toLowerCase();
-        button.style.display = text.includes(filter) ? "inline-block" : "none";
+    // Add hover effects to buttons
+    document.querySelectorAll('.button').forEach(button => {
+      button.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px) scale(1.02)';
+      });
+      
+      button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
       });
     });
   </script>
-
 </body>
 </html>

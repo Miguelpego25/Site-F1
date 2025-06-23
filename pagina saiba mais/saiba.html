@@ -3,105 +3,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saiba Mais - Fórmula 1</title>
+    <title>Sobre F1 - Fórmula 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #fff;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        .header {
-            text-align: center;
-            padding: 50px;
-        }
-
-        a {
-            color: #f00;
-            text-decoration: none;
-        }
-
-        h3 {
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             color: #fff;
-            font-size: medium;
-            text-align: center;
+            overflow-x: hidden;
         }
 
-        .conteudo {
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #d40000 0%, #ff0000 50%, #d40000 100%);
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+            color: #d40000;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            font-weight: 300;
             max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        .disclaimer {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 30px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: rgba(0,0,0,0.8);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .nav a:hover {
+            background: rgba(212, 0, 0, 0.3);
+            border-color: #d40000;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #d40000;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(212, 0, 0, 0.3);
+        }
+
+        .section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 20px;
             text-align: justify;
         }
 
-        .btn-voltar {
-            background-color: #f00;
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d40000, #ff0000, #d40000);
+            background-size: 200% 100%;
+            animation: gradient 3s ease infinite;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            border-color: rgba(212, 0, 0, 0.3);
+        }
+
+        .info-card h4 {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-card p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 0;
+        }
+
+        /* History Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #d40000, #ff0000, #d40000);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .timeline-content {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #d40000;
+            border-radius: 50%;
+            border: 4px solid #fff;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -60px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -60px;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: #d40000;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Back Button */
+        .btn-voltar {
+            background: linear-gradient(135deg, #d40000 0%, #ff0000 100%);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.1em;
             border: none;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            margin-top: 20px;
+            margin: 30px auto;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-voltar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-voltar:hover::before {
+            left: 100%;
         }
 
         .btn-voltar:hover {
-            background-color: #d40000;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 0, 0, 0.4);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .header p {
+                font-size: 1.1em;
+                padding: 0 20px;
+            }
+
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-content::before {
+                left: -50px !important;
+            }
+
+            .section h2 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .info-card {
+                padding: 20px;
+            }
+
+            .timeline-content {
+                padding: 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 1s ease-out 2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loading::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border: 3px solid #d40000;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-
-
+    <!-- Loading Screen -->
+    <div class="loading"></div>
 
     <header class="header">
-        <h1 style="color: #d40000;">Informações sobre a Fórmula 1</h1>
-        <p>Aqui você encontra tudo sobre a história da Fórmula 1,</p>
-        <p><strong>Este site não é oficial.</strong></p>
-        <p><strong>This site is not official.</strong></p>
+        <h1>Informações sobre a Fórmula 1</h1>
+        <p>Aqui você encontra tudo sobre a história da Fórmula 1, desde sua criação até os dias atuais</p>
+        <div class="disclaimer">Este site não é oficial</div>
+        <div class="disclaimer">This site is not official</div>
     </header>
 
-    <div class="conteudo">
-        <h3>Resumo da Fórmula 1</h3>
-        <p>A Fórmula 1 é a principal categoria do automobilismo mundial, organizada pela FIA (Federação Internacional de Automobilismo). Ela é conhecida por suas corridas de alta velocidade, tecnologia de ponta e pilotos de elite.</p>
+    <nav class="nav-container">
+        <div class="nav">
+            <a href="../classificação/classificaçao.html">Classificação</a>
+            <a href="../notícias/noticias.html">Notícias</a>
+            <a href="../créditos/creditos.html">Créditos</a>
+            <a href="../sitef1.html">Página Inicial</a>
+        </div>
+    </nav>
 
-        <p><strong>📜 História:</strong><br>
-        Criada em 1950, com o primeiro campeonato mundial realizado no Grande Prêmio da Grã-Bretanha. Grandes nomes como Ayrton Senna, Michael Schumacher, Lewis Hamilton e Alain Prost marcaram a história do esporte.</p>
+    <div class="main-content">
+        <section class="section">
+            <h2>📜 História da Fórmula 1</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1950</div>
+                        <h4>Primeiro Campeonato Mundial</h4>
+                        <p>O primeiro Campeonato Mundial de Fórmula 1 aconteceu no Grande Prêmio da Grã-Bretanha em Silverstone. Giuseppe Farina se tornou o primeiro campeão mundial da história.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1958</div>
+                        <h4>Era dos Motores Traseiros</h4>
+                        <p>Cooper introduziu o motor traseiro, revolucionando o design dos carros de F1 e estabelecendo um padrão que perdura até hoje.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1968</div>
+                        <h4>Era das Asas</h4>
+                        <p>Lotus introduziu as asas aerodinâmicas, marcando o início da era moderna da F1 com foco em aerodinâmica.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1988</div>
+                        <h4>Dominância McLaren-Honda</h4>
+                        <p>Ayrton Senna e Alain Prost dominaram a temporada com a McLaren-Honda, conquistando 15 das 16 corridas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2000-2004</div>
+                        <h4>Era Schumacher</h4>
+                        <p>Michael Schumacher conquistou cinco títulos consecutivos com a Ferrari, estabelecendo recordes que duraram décadas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2014</div>
+                        <h4>Era Híbrida</h4>
+                        <p>A F1 adotou motores híbridos V6 turbo, marcando uma nova era de eficiência energética e tecnologia sustentável.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <h4>Batalha Épica</h4>
+                        <p>Lewis Hamilton e Max Verstappen protagonizaram uma das temporadas mais emocionantes da história, decidida na última volta da última corrida.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <p><strong>🏎️ Como funciona:</strong><br>
-        A temporada é composta por uma série de corridas (chamadas GPs) realizadas em diferentes países. Cada equipe (como Ferrari, Mercedes, Red Bull, McLaren) conta com dois pilotos. Pilotos e equipes somam pontos ao longo do ano, disputando os títulos de Campeão Mundial de Pilotos e de Construtores.</p>
+        <section class="section">
+            <h2>🏎️ Como Funciona</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏁 Sistema de Pontos</h4>
+                    <p>Os pilotos pontuam em cada corrida: 25 pontos para o 1º, 18 para o 2º, 15 para o 3º, e assim por diante. O piloto com mais pontos ao final da temporada é declarado campeão mundial.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🏆 Duas Coroas</h4>
+                    <p>A F1 tem dois campeonatos: o de Pilotos (individual) e o de Construtores (equipes). Ambos são disputados simultaneamente ao longo da temporada.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🌍 Circuitos Mundiais</h4>
+                    <p>Uma temporada típica tem entre 20-24 corridas em diferentes países, desde circuitos urbanos até autódromos tradicionais, passando por todos os continentes.</p>
+                </div>
+                <div class="info-card">
+                    <h4>⚡ Qualificação</h4>
+                    <p>Antes de cada corrida, os pilotos disputam a qualificação para determinar a ordem de largada. O mais rápido larga na pole position.</p>
+                </div>
+            </div>
+        </section>
 
-        <p><strong>🔧 Tecnologia:</strong><br>
-        Os carros da F1 são extremamente avançados: usam motores híbridos, aerodinâmica sofisticada e materiais ultraleves. A F1 também é um laboratório para tecnologias que depois chegam aos carros comuns.</p>
+        <section class="section">
+            <h2>🔧 Tecnologia de Ponta</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🚀 Motores Híbridos</h4>
+                    <p>Os carros usam motores V6 turbo híbridos de 1.6L que combinam combustão interna com energia elétrica, atingindo mais de 1000 cavalos de potência.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🛡️ Segurança Avançada</h4>
+                    <p>Monocoque de carbono, HANS (sistema de proteção cervical), halo (proteção da cabeça) e outras tecnologias tornam a F1 mais segura do que nunca.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📊 Telemetria</h4>
+                    <p>Centenas de sensores monitoram cada aspecto do carro em tempo real, gerando dados que são analisados por supercomputadores durante a corrida.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎯 Aerodinâmica</h4>
+                    <p>Asas, difusores e outros elementos aerodinâmicos geram downforce que permite aos carros fazer curvas a velocidades impressionantes.</p>
+                </div>
+            </div>
+        </section>
 
-        <p><strong>🌍 Importância global:</strong><br>
-        É um dos esportes mais assistidos do mundo. Em cada corrida, milhões de fãs acompanham o espetáculo ao redor do planeta.</p>
+        <section class="section">
+            <h2>🌍 Impacto Global</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>👥 Milhões de Fãs</h4>
+                    <p>A F1 é um dos esportes mais assistidos do mundo, com mais de 500 milhões de espectadores por temporada em mais de 200 países.</p>
+                </div>
+                <div class="info-card">
+                    <h4>💰 Economia Bilionária</h4>
+                    <p>O esporte movimenta bilhões de dólares anualmente, incluindo patrocínios, direitos de transmissão, turismo e desenvolvimento tecnológico.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🔬 Inovação Tecnológica</h4>
+                    <p>Muitas tecnologias desenvolvidas na F1 acabam sendo adaptadas para carros de rua, desde sistemas de freio até materiais ultraleves.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🌱 Sustentabilidade</h4>
+                    <p>A F1 está comprometida com a neutralidade de carbono até 2030, investindo em combustíveis sustentáveis e tecnologias verdes.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="btn-container">
+            <a href="../sitef1.html" class="btn-voltar">← Voltar ao Início</a>
+        </div>
     </div>
 
-    <div class="conteudo">
-        <h3>Curiosidades</h3>
-        <h3><strong> 1. O Primeiro Grande Prêmio da F1</strong></h3>
-        <p> O primeiro Campeonato Mundial de Fórmula 1 aconteceu em 1950, no Grande Prêmio da Grã-Bretanha em Silverstone. Esse foi o início de uma das competições mais prestigiadas e tecnológicas do mundo.</p>
+    <script>
+        // Remove loading screen after page loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.loading').style.display = 'none';
+            }, 2000);
+        });
 
-        <h3><strong>2. Maior Número de Vitórias</strong></h3>
-        <p>O piloto com o maior número de vitórias em Grandes Prêmios de F1 é Lewis Hamilton, com mais de 100 vitórias (até 2023). Ele superou o recorde anterior de Michael Schumacher, que tinha 91 vitórias.</p>
+        // Add timeline animation
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.2}s`;
+        });
 
-        <h3><strong>3. O Carro Mais Rápido da História</strong></h3>
-        <p>O carro mais rápido da história da F1 é o Honda RA106 de 2006, que atingiu a velocidade de 413 km/h durante um teste. Isso, claro, não foi durante uma corrida, mas sim em um teste de velocidade controlado.</p>
-
-        <h3><strong>4. Tecnologia e Inovação</strong></h3>
-        <p>A Fórmula 1 é famosa por ser um laboratório para tecnologia automotiva de ponta. Muitos avanços que começaram nos carros de F1, como sistemas de suspensão e materiais mais leves (como o carbono), acabaram sendo adaptados para os carros de rua.</p>
-
-        <h3><strong>5. Estratégia de Combustível</strong></h3>
-        <p>Durante muitos anos, os carros de F1 usaram um sistema de combustível altamente otimizado para maximizar a performance nas corridas. No entanto, em 2014, a FIA (Federação Internacional de Automobilismo) começou a implementar motores híbridos, que são mais eficientes em termos de consumo de combustível.</p>
-    </div>
-
-    <div class="header">
-        <!-- Botão de voltar -->
-        <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/paginaf1.html" class="btn-voltar">Voltar para a página inicial</a>
-    </div>
+        // Add card hover effects
+        document.querySelectorAll('.info-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.animation = 'fadeInUp 0.5s ease-out forwards';
+            card.style.opacity = '0';
+        });
+    </script>
 </body>
 </html>

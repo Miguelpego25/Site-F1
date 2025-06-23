@@ -4,239 +4,579 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classificação - Fórmula 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #fff;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-            header {
-            background-color: #d40000;
-            color: white;
-            padding: 20px;
-            text-align: center;
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-        a {
-            color: #f00;
-            text-decoration: none;
-            font-size: 1.2em;
-            display: inline-block;
-            margin-top: 20px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        a:hover {
-            color: #c00;
-            text-decoration: underline;
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        /* Tabela de Classificação */
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #d40000 0%, #ff0000 50%, #d40000 100%);
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+            padding: 40px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #333;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: rgba(0,0,0,0.8);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .nav a:hover {
+            background: rgba(212, 0, 0, 0.3);
+            border-color: #d40000;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+
+        .table-title {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #d40000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 1.1em;
         }
 
         th {
-            background-color: #f00;
+            background: linear-gradient(135deg, #d40000 0%, #ff0000 100%);
             color: #fff;
+            padding: 20px 15px;
+            text-align: center;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1em;
+            position: relative;
         }
 
-        tr:nth-child(even) {
-            background-color: #2a2a2a;
+        th:first-child {
+            border-radius: 10px 0 0 0;
         }
 
-        tr:nth-child(odd) {
-            background-color: #1a1a1a;
+        th:last-child {
+            border-radius: 0 10px 0 0;
         }
 
         td {
-            font-size: 1em;
+            padding: 18px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            table {
-                width: 95%;
-            }
-
-            th, td {
-                font-size: 0.9em;
-            }
+        tr {
+            transition: all 0.3s ease;
         }
 
-         .btn-voltar {
-            background-color: rgb(85, 14, 14);
+        tr:hover {
+            background: rgba(212, 0, 0, 0.1);
+            transform: scale(1.01);
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+
+        tr:nth-child(odd) {
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* Position styling */
+        .position {
+            font-weight: 900;
+            font-size: 1.3em;
+            color: #d40000;
+        }
+
+        .position-1 {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .position-2 {
+            color: #c0c0c0;
+            text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+        }
+
+        .position-3 {
+            color: #cd7f32;
+            text-shadow: 0 0 10px rgba(205, 127, 50, 0.5);
+        }
+
+        /* Team colors */
+        .team-mclaren { color: #ff8700; }
+        .team-redbull { color: #0600ef; }
+        .team-mercedes { color: #00d2be; }
+        .team-ferrari { color: #dc0000; }
+        .team-williams { color: #005aff; }
+        .team-haas { color: #ffffff; }
+        .team-racingbulls { color: #1e41ff; }
+        .team-sauber { color: #52e252; }
+        .team-astonmartin { color: #006f62; }
+        .team-alpine { color: #0090ff; }
+
+        /* Points styling */
+        .points {
+            font-weight: 700;
+            font-size: 1.2em;
             color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
+        }
+
+        /* Back Button */
+        .btn-voltar {
+            background: linear-gradient(135deg, #d40000 0%, #ff0000 100%);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.1em;
             border: none;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            margin-top: 20px;
+            margin: 30px auto;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-voltar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-voltar:hover::before {
+            left: 100%;
         }
 
         .btn-voltar:hover {
-            background-color: #4a00d4;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 0, 0, 0.4);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .header p {
+                font-size: 1em;
+                padding: 0 20px;
+            }
+
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .table-container {
+                padding: 20px 10px;
+                margin: 20px 10px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+
+            .table-title {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            table {
+                font-size: 0.8em;
+            }
+
+            th, td {
+                padding: 8px 5px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 1s ease-out 2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loading::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border: 3px solid #d40000;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading"></div>
+
     <header class="header">
-        <h1>Classificação Atual</h1>
-        <p>Aqui você encontra a classificação atual dos pilotos e equipes da Fórmula 1!</p>
-        
-        <!-- Botão de Voltar -->
-        <a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/paginaf1.html", class="btn-voltar">Voltar para a página inicial</a>
+        <h1>Classificação</h1>
+        <p>Confira a classificação atualizada dos pilotos da Fórmula 1</p>
     </header>
 
-    <!-- Tabela de Classificação -->
-    <table>
-        <thead>
-            <tr>
-                <th>Posição</th>
-                <th>Piloto</th>
-                <th>Equipe</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Exemplo de Pilotos e Equipes -->
-            <tr>
-                <td>1</td>
-                <td>Oscar Piastri</td>
-                <td>Mclaren</td>
-                <td>186</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Lando Norris</td>
-                <td>Mclaren</td>
-                <td>176</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Max Verstappen</td>
-                <td>Red Bull</td>
-                <td>137</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>George Russell</td>
-                <td>Mercedes</td>
-                <td>111</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Charles Leclerc</td>
-                <td>Ferrari</td>
-                <td>94</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Lewis Hamilton</td>
-                <td>Ferrari</td>
-                <td>71</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>Kimi Antonelli</td>
-                <td>Mercedes</td>
-                <td>48</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>Alexander Albon</td>
-                <td>Williams</td>
-                <td>42</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Isack Hadjar</td>
-                <td>Racing Bulls</td>
-                <td>21</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>Esteban Ocon</td>
-                <td>Haas</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td>11</td>
-                <td>Nico Hülkenberg</td>
-                <td>Kick Sauber</td>
-                <td>16</td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>Lance Stroll</td>
-                <td>Aston Martin</td>
-                <td>14</td>
-            </tr>
-            <tr>
-                <td>13</td>
-                <td>Carloz Sainz Jr</td>
-                <td>Williams</td>
-                <td>12</td>
-            </tr>
-            <tr>
-                <td>14</td>
-                <td>Pierre Gasly</td>
-                <td>Alpine</td>
-                <td>11</td>
-            </tr>
-            <tr>
-                <td>15</td>
-                <td>Yuki Tsunoda</td>
-                <td>Red Bull</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>16</td>
-                <td>Oliver Bearman</td>
-                <td>Haas</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td>17</td>
-                <td>Liam Lawson</td>
-                <td>Racing Bull</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>18</td>
-                <td>Fernando Alonso</td>
-                <td>Aston Martin</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>19</td>
-                <td>Gabriel Bortoleto</td>
-                <td>Kick Sauber</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>20</td>
-                <td>Jack Doohan</td>
-                <td>Alpine</td>
-                <td>0</td>
-            </tr>
-            <td>21</td>
-                <td>Franco Colapinto</td>
-                <td>Alpine</td>
-                <td>0</td>
-            </tr>
-        </tbody>
-    </table>
+    <nav class="nav-container">
+        <div class="nav">
+            <a href="../saiba mais/saiba.html">Sobre F1</a>
+            <a href="../notícias/noticias.html">Notícias</a>
+            <a href="../créditos/creditos.html">Créditos</a>
+            <a href="../sitef1.html">Página Inicial</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="table-container">
+            <h2 class="table-title">🏆 Classificação dos Pilotos</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Piloto</th>
+                        <th>Equipe</th>
+                        <th>Pontos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="position position-1">1</td>
+                        <td><strong>Oscar Piastri</strong></td>
+                        <td class="team-mclaren">McLaren</td>
+                        <td class="points">198</td>
+                    </tr>
+                    <tr>
+                        <td class="position position-2">2</td>
+                        <td><strong>Lando Norris</strong></td>
+                        <td class="team-mclaren">McLaren</td>
+                        <td class="points">176</td>
+                    </tr>
+                    <tr>
+                        <td class="position position-3">3</td>
+                        <td><strong>Max Verstappen</strong></td>
+                        <td class="team-redbull">Red Bull</td>
+                        <td class="points">155</td>
+                    </tr>
+                    <tr>
+                        <td class="position">4</td>
+                        <td><strong>George Russell</strong></td>
+                        <td class="team-mercedes">Mercedes</td>
+                        <td class="points">136</td>
+                    </tr>
+                    <tr>
+                        <td class="position">5</td>
+                        <td><strong>Charles Leclerc</strong></td>
+                        <td class="team-ferrari">Ferrari</td>
+                        <td class="points">104</td>
+                    </tr>
+                    <tr>
+                        <td class="position">6</td>
+                        <td><strong>Lewis Hamilton</strong></td>
+                        <td class="team-ferrari">Ferrari</td>
+                        <td class="points">79</td>
+                    </tr>
+                    <tr>
+                        <td class="position">7</td>
+                        <td><strong>Kimi Antonelli</strong></td>
+                        <td class="team-mercedes">Mercedes</td>
+                        <td class="points">63</td>
+                    </tr>
+                    <tr>
+                        <td class="position">8</td>
+                        <td><strong>Alexander Albon</strong></td>
+                        <td class="team-williams">Williams</td>
+                        <td class="points">42</td>
+                    </tr>
+                    <tr>
+                        <td class="position">9</td>
+                        <td><strong>Esteban Ocon</strong></td>
+                        <td class="team-haas">Haas</td>
+                        <td class="points">22</td>
+                    </tr>
+                    <tr>
+                        <td class="position">10</td>
+                        <td><strong>Isack Hadjar</strong></td>
+                        <td class="team-racingbulls">Racing Bulls</td>
+                        <td class="points">21</td>
+                    </tr>
+                    <tr>
+                        <td class="position">11</td>
+                        <td><strong>Nico Hülkenberg</strong></td>
+                        <td class="team-sauber">Kick Sauber</td>
+                        <td class="points">20</td>
+                    </tr>
+                    <tr>
+                        <td class="position">12</td>
+                        <td><strong>Lance Stroll</strong></td>
+                        <td class="team-astonmartin">Aston Martin</td>
+                        <td class="points">14</td>
+                    </tr>
+                    <tr>
+                        <td class="position">13</td>
+                        <td><strong>Carlos Sainz Jr</strong></td>
+                        <td class="team-williams">Williams</td>
+                        <td class="points">13</td>
+                    </tr>
+                    <tr>
+                        <td class="position">14</td>
+                        <td><strong>Pierre Gasly</strong></td>
+                        <td class="team-alpine">Alpine</td>
+                        <td class="points">11</td>
+                    </tr>
+                    <tr>
+                        <td class="position">15</td>
+                        <td><strong>Yuki Tsunoda</strong></td>
+                        <td class="team-redbull">Red Bull</td>
+                        <td class="points">10</td>
+                    </tr>
+                    <tr>
+                        <td class="position">16</td>
+                        <td><strong>Fernando Alonso</strong></td>
+                        <td class="team-astonmartin">Aston Martin</td>
+                        <td class="points">8</td>
+                    </tr>
+                    <tr>
+                        <td class="position">17</td>
+                        <td><strong>Oliver Bearman</strong></td>
+                        <td class="team-haas">Haas</td>
+                        <td class="points">6</td>
+                    </tr>
+                    <tr>
+                        <td class="position">18</td>
+                        <td><strong>Liam Lawson</strong></td>
+                        <td class="team-racingbulls">Racing Bulls</td>
+                        <td class="points">4</td>
+                    </tr>
+                    <tr>
+                        <td class="position">19</td>
+                        <td><strong>Gabriel Bortoleto</strong></td>
+                        <td class="team-sauber">Kick Sauber</td>
+                        <td class="points">0</td>
+                    </tr>
+                    <tr>
+                        <td class="position">20</td>
+                        <td><strong>Franco Colapinto</strong></td>
+                        <td class="team-alpine">Alpine</td>
+                        <td class="points">0</td>
+                    </tr>
+                    <tr>
+                        <td class="position">21</td>
+                        <td><strong>Jack Doohan</strong></td>
+                        <td class="team-alpine">Alpine</td>
+                        <td class="points">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="btn-container">
+            <a href="../sitef1.html" class="btn-voltar">← Voltar ao Início</a>
+        </div>
+    </div>
+
+    <script>
+        // Remove loading screen after page loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.loading').style.display = 'none';
+            }, 2000);
+        });
+
+        // Add row hover effects
+        document.querySelectorAll('tbody tr').forEach((row, index) => {
+            row.style.animationDelay = `${index * 0.1}s`;
+            row.style.animation = 'fadeInUp 0.5s ease-out forwards';
+            row.style.opacity = '0';
+        });
+    </script>
 </body>
 </html>

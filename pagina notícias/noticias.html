@@ -3,24 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mundo da Fórmula 1</title>
+  <title>Notícias - Fórmula 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
-      background-color: #000;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
       color: #fff;
+      overflow-x: hidden;
     }
 
+    /* Animações */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Header */
     header {
-      background-color: #d40000;
+      background: linear-gradient(135deg, #d40000 0%, #ff0000 50%, #d40000 100%);
+      background-size: 200% 200%;
+      animation: gradient 3s ease infinite;
       color: white;
-      padding: 20px;
+      padding: 40px 0;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 3.5em;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: fadeInUp 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
     nav {
-      background-color: #111;
+      background: rgba(0,0,0,0.8);
+      padding: 15px 0;
+      backdrop-filter: blur(10px);
     }
 
     nav ul {
@@ -29,6 +112,8 @@
       padding: 0;
       display: flex;
       justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     nav li {
@@ -39,91 +124,421 @@
       display: inline-block;
       color: white;
       text-align: center;
-      padding: 14px 16px;
+      padding: 10px 20px;
       text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: 2px solid transparent;
     }
 
     nav a:hover {
-      background-color: #333;
+      background: rgba(212, 0, 0, 0.3);
+      border-color: #d40000;
+      transform: translateY(-2px);
     }
 
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    /* Section Styles */
     section {
+      margin-bottom: 60px;
+      animation: fadeInUp 1s ease-out 0.8s both;
+    }
+
+    section h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.5em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      color: #d40000;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(212, 0, 0, 0.3);
+    }
+
+    /* News Cards */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .news-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
       padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    #noticias {
-      background-color: #111;
-      border-top: 1px solid #333;
+    .news-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #d40000, #ff0000, #d40000);
+      background-size: 200% 100%;
+      animation: gradient 3s ease infinite;
     }
 
-    #noticias h2,
-    #noticias h3 {
+    .news-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      border-color: rgba(212, 0, 0, 0.3);
+    }
+
+    .news-card h3 {
+      font-size: 1.4em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .news-card p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .news-card small {
+      color: #888;
+      font-size: 0.9em;
+      display: block;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .news-card .news-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .news-date {
+      color: #d40000;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+
+    .news-source {
+      color: #888;
+      font-size: 0.8em;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .news-source:hover {
+      color: #d40000;
+    }
+
+    /* Featured News */
+    .featured-news {
+      background: linear-gradient(135deg, rgba(212, 0, 0, 0.1) 0%, rgba(255, 0, 0, 0.05) 100%);
+      border: 2px solid rgba(212, 0, 0, 0.3);
+      padding: 40px;
+      border-radius: 25px;
+      margin-bottom: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-news::before {
+      content: '🔥 DESTAQUE';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #d40000, #ff0000);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .featured-news h3 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
       color: #fff;
     }
 
-    #noticias article {
-      border-bottom: 1px solid #333;
-      padding: 15px 0;
-      margin-bottom: 15px;
+    .featured-news p {
+      font-size: 1.2em;
+      line-height: 1.7;
+      color: #ccc;
     }
 
-    #noticias small {
-      color: #aaa;
+    /* Back Button */
+    .btn-voltar {
+      background: linear-gradient(135deg, #d40000 0%, #ff0000 100%);
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 30px auto;
+      border-radius: 25px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(212, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
     }
 
+    .btn-voltar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-voltar:hover::before {
+      left: 100%;
+    }
+
+    .btn-voltar:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(212, 0, 0, 0.4);
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Footer */
     footer {
-      background-color: #111;
+      background: rgba(0,0,0,0.8);
       color: #ccc;
       text-align: center;
-      padding: 15px;
-      border-top: 1px solid #333;
+      padding: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
     }
 
-    h2 {
-        color: #d40000      ;
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .featured-news {
+        padding: 30px 20px;
+      }
+
+      .featured-news h3 {
+        font-size: 1.5em;
+      }
+
+      section h2 {
+        font-size: 2em;
+      }
     }
 
-    
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2em;
+      }
+
+      .news-card {
+        padding: 20px;
+      }
+
+      .featured-news {
+        padding: 20px 15px;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 1s ease-out 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .loading::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      border: 3px solid #d40000;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading"></div>
 
   <header>
-    <h1>Mundo da Fórmula 1</h1>
+    <h1>Notícias F1</h1>
   </header>
 
   <nav>
     <ul>
-      <li><a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20saiba%20mais/saiba.html">Sobre</a></li>
-      <li><a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/pagina%20classificac%C3%A3o/classificacao.html">Classificação</a></li>
-      <li><a href="C:/Users/Usu%C3%A1rio/Desktop/Site%20F1/paginaf1.html">Menu Pincipal</a></li>
+      <li><a href="../saiba mais/saiba.html">Sobre F1</a></li>
+      <li><a href="../classificação/classificaçao.html">Classificação</a></li>
+      <li><a href="../créditos/creditos.html">Créditos</a></li>
+      <li><a href="../sitef1.html">Página Inicial</a></li>
     </ul>
   </nav>
 
-  <section id="sobre">
-    <h2>Sobre</h2>
-    <p>Bem-vindo ao Mundo da Fórmula 1! Aqui você encontra informações, curiosidades e atualizações sobre a principal categoria do automobilismo mundial.</p>
-  </section>
+  <div class="main-content">
+    <section id="featured">
+      <div class="featured-news">
+        <h3>Andrea Kimi Antonelli é italiano mais jovem no pódio da F1 e terceiro geral</h3>
+        <p>Calouro da Mercedes chegou em terceiro lugar no GP do Canadá deste domingo, conquistando primeiro pódio da carreira após dez corridas disputadas em 2025. O piloto italiano de apenas 18 anos fez história ao se tornar o italiano mais jovem a subir ao pódio na Fórmula 1, superando recordes anteriores e demonstrando talento excepcional desde sua estreia na categoria.</p>
+        <div class="news-meta">
+          <span class="news-date">18 de Junho, 2025</span>
+          <a href="https://ge.globo.com/motor/formula-1/noticia/2025/06/18/andrea-kimi-antonelli-e-italiano-mais-jovem-no-podio-da-f1-e-terceiro-geral.ghtml" class="news-source" target="_blank">Fonte: Globo Esporte</a>
+        </div>
+      </div>
+    </section>
 
-  <section id="classificacao">
-    <h2>Classificação</h2>
-    <p>Classificação atualizada dos pilotos e equipes da temporada.</p>
-  </section>
+    <section id="noticias">
+      <h2>📰 Últimas Notícias</h2>
+      
+      <div class="news-grid">
+        <article class="news-card">
+          <h3>McLaren domina início da temporada 2025</h3>
+          <p>A equipe McLaren tem sido a grande surpresa do início da temporada 2025, com Oscar Piastri liderando o campeonato e Lando Norris em segundo lugar. A evolução técnica do carro tem impressionado especialistas e fãs.</p>
+          <div class="news-meta">
+            <span class="news-date">15 de Junho, 2025</span>
+            <a href="#" class="news-source">Fonte: Motorsport.com</a>
+          </div>
+        </article>
 
-  <section id="noticias">
-    <h2 style="color: #d40000;">Últimas Notícias</h2>
+        <article class="news-card">
+          <h3>Max Verstappen busca recuperação após início difícil</h3>
+          <p>O tricampeão mundial Max Verstappen enfrenta um dos momentos mais desafiadores de sua carreira na Red Bull, ocupando apenas a terceira posição no campeonato após dominar as últimas temporadas.</p>
+          <div class="news-meta">
+            <span class="news-date">12 de Junho, 2025</span>
+            <a href="#" class="news-source">Fonte: F1.com</a>
+          </div>
+        </article>
 
-    <!-- Modelo de notícia -->
-    <article>
-      <h3>Título da Notícia</h3>
-      <p>Texto da notícia vai aqui. Você pode editar, adicionar imagens, links, etc.</p>
-      <p><small>Publicado em: dd/mm/aaaa</small></p>
-    </article>
-  </section>
+        <article class="news-card">
+          <h3>Ferrari anuncia nova parceria tecnológica</h3>
+          <p>A Scuderia Ferrari anunciou uma nova parceria tecnológica que promete revolucionar o desenvolvimento de seus carros para as próximas temporadas, investindo em inteligência artificial e simulação avançada.</p>
+          <div class="news-meta">
+            <span class="news-date">10 de Junho, 2025</span>
+            <a href="#" class="news-source">Fonte: Autosport</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <h3>Novos regulamentos para 2026 já em discussão</h3>
+          <p>A FIA iniciou discussões sobre novos regulamentos técnicos para a temporada 2026, que incluem mudanças significativas nos motores e aerodinâmica, visando tornar as corridas ainda mais emocionantes.</p>
+          <div class="news-meta">
+            <span class="news-date">8 de Junho, 2025</span>
+            <a href="#" class="news-source">Fonte: Formula1.com</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <h3>Lewis Hamilton adapta-se à Ferrari</h3>
+          <p>O heptacampeão mundial Lewis Hamilton tem se adaptado bem à sua nova equipe, a Ferrari, demonstrando que ainda tem muito a oferecer ao esporte mesmo após tantos anos de sucesso na Mercedes.</p>
+          <div class="news-meta">
+            <span class="news-date">5 de Junho, 2025</span>
+            <a href="#" class="news-source">Fonte: Sky Sports F1</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <h3>Novos talentos emergem na F1</h3>
+          <p>A nova geração de pilotos está impressionando na Fórmula 1, com nomes como Kimi Antonelli, Oliver Bearman e Gabriel Bortoleto mostrando que o futuro do esporte está em boas mãos.</p>
+          <div class="news-meta">
+            <span class="news-date">3 de Junho, 2025</span>
+            <a href="#" class="news-source">Fonte: Motorsport.com</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="btn-container">
+      <a href="../sitef1.html" class="btn-voltar">← Voltar ao Início</a>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2025 Mundo da Fórmula 1 - Todos os direitos reservados</p>
   </footer>
 
+  <script>
+    // Remove loading screen after page loads
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.querySelector('.loading').style.display = 'none';
+      }, 2000);
+    });
+
+    // Add card hover effects
+    document.querySelectorAll('.news-card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+      card.style.animation = 'fadeInUp 0.5s ease-out forwards';
+      card.style.opacity = '0';
+    });
+  </script>
 </body>
 </html>
